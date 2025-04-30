@@ -16,4 +16,10 @@ jobs:
           else
             echo "No code yet — skipping coverage check."
           fi
-      - run: behave -f progress
+      - name: Run behave (skip if no features)
+        run: |
+          if find . -name '*.feature' | grep -q .; then
+            behave -f progress
+          else
+            echo "No .feature files found — skipping behave tests."
+          fi
